@@ -1,4 +1,5 @@
-FROM python:3.7.11-slim-stretch
+#FROM python:3.7.11-slim-stretch
+FROM python:latest
 
 RUN apt-get update; apt-get install -y gunicorn
 COPY requirements.txt /requirements.txt
