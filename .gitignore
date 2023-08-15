@@ -5,5 +5,4 @@ venv/
 ec2/
 vpc/
 .yaml
-*.txt
 setup.sh
