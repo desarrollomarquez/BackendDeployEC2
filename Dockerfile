@@ -1,6 +1,6 @@
 FROM python:3.7.11-slim-stretch
 
-RUN apt update; apt install -y gunicorn
+RUN apt-get update; apt-get install -y gunicorn
 COPY requirements.txt /requirements.txt
 RUN pip3 install --no-cache-dir -r /requirements.txt
 COPY . /app
