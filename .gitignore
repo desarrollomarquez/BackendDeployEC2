@@ -1,0 +1,9 @@
+*.pyc
+venv/
+*.env
+*.pem
+ec2/
+vpc/
+.yaml
+*.txt
+setup.sh

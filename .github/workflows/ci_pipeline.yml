@@ -1,0 +1,36 @@
+name: Staging CI ApiRest - EC2
+on: 
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  test-build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.2
+        with:
+          envkey_ENV: ${{ secrets.ENV }}
+          envkey_AWS_API_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          envkey_AWS_API_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          envkey_AWS_REGION: ${{ secrets.AWS_REGION }}
+          directory: ${{ github.workspace }}
+          fail_on_empty: false
+          file_name: .env
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Login to Amazon ECR.
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Build, Tag, and Push the image to Amazon EC2 Staging
+        id: build-image
+        run: |
+            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_URL }}
+            docker build . --file Dockerfile --tag ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest
+            docker push ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest
