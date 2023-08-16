@@ -38,6 +38,6 @@ jobs:
             docker push ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest
             ssh -o StrictHostKeyChecking=no -i "deployer_devops.pem" ${{ secrets.DNS_EC2 }} 
             'aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_URL }} ;
-             sudo docker pull ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest ; sudo docker images'
+             aws configure list'
 
 
