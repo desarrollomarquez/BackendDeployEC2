@@ -38,5 +38,5 @@ jobs:
             
             echo ${{ secrets.KEY_DEPLOYER_PEM }} >> $HOME/deployer_devops.pem
             chmod 400 $HOME/deployer_devops.pem
-            cat deployer_devops.pem
+            
 
