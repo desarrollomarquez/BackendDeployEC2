@@ -39,6 +39,6 @@ jobs:
           echo "${{ secrets.KEY_DEPLOYER_PEM }}" > deployer_devops.pem
           chmod 600 deployer_devops.pem
       - name: Update image on server
-        run: ssh -o StrictHostKeyChecking=no -i "deployer_devops.pem" ${{ secrets.DNS_EC2 }} 'ls -la'
+        run: ssh -o StrictHostKeyChecking=no -i "deployer_devops.pem" ${{ secrets.DNS_EC2 }} 'sudo docker build . --file Dockerfile --tag ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest; sudo docker images'
 
 
