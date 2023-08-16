@@ -43,6 +43,6 @@ jobs:
           echo "$PRIVATE_KEY" >> $HOME/deployer_devops.pem
           chmod 400 $HOME/deployer_devops.pem
       - name: Update image on server
-        run: ssh -i $HOME/deployer_devops.pem -o StrictHostKeyChecking=no ubuntu@$DNS_EC2 'ls -la'
+        run: ssh -i $HOME/deployer_devops.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.DNS_EC2 }} 'ls -la'
 
 
