@@ -38,5 +38,15 @@ jobs:
             
             echo ${{ secrets.KEY_DEPLOYER_PEM }} >> $HOME/deployer_devops.pem
             chmod 400 $HOME/deployer_devops.pem
-            
+      - name: Setup key
+        id: setup-key
+        env:
+          PRIVATE_KEY: ${{ secrets.KEY_DEPLOYER_PEM }}
+          DNS_EC2: ${{ secrets.DNS_EC2 }}
+        run: |
+          echo "$PRIVATE_KEY" >> $HOME/deployer_devops.pem
+          chmod 400 $HOME/deployer_devops.pem
+      - name: Update image on server
+        run: ssh -i $HOME/deployer_devops.pem -o StrictHostKeyChecking=no ubuntu@$DNS_EC2 'ls -la'
+
 
