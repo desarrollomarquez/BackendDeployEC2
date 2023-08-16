@@ -39,6 +39,6 @@ jobs:
           echo "${{ secrets.KEY_DEPLOYER_PEM }}" > deployer_devops.pem
           chmod 400 deployer_devops.pem
       - name: Update image on server
-        run: ssh -i "deployer_devops.pem" ${{ secrets.DNS_EC2 }} 'ls -la'
+        run: ssh -o StrictHostKeyChecking=no -i "deployer_devops.pem" ${{ secrets.DNS_EC2 }} 'ls -la'
 
 
