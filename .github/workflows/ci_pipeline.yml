@@ -35,14 +35,10 @@ jobs:
             docker build . --file Dockerfile --tag ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest
             docker push ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest
       - name: Setup key
-        id: setup-key
-        env:
-          PRIVATE_KEY: ${{ secrets.KEY_DEPLOYER_PEM }}
-          DNS_EC2: ${{ secrets.DNS_EC2 }}
         run: |
-          echo "$PRIVATE_KEY" >> $HOME/deployer_devops.pem
-          chmod 400 $HOME/deployer_devops.pem
+          echo "${{ secrets.KEY_DEPLOYER_PEM }}" > deployer_devops.pem
+          chmod 600 deployer_devops.pem
       - name: Update image on server
-        run: ssh -i "$HOME/deployer_devops.pem" ubuntu@${{ secrets.DNS_EC2 }} 'ls -la'
+        run: ssh -i "deployer_devops.pem" ubuntu@${{ secrets.DNS_EC2 }} 'ls -la'
 
 
