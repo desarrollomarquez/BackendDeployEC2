@@ -37,7 +37,6 @@ jobs:
             cat -> deployer_devops.pem
             ${{ secrets.KEY_DEPLOYER_PEM }}
             chmod 400 deployer_devops.pem
-            ssh -i "deployer_devops.pem" ubuntu@${{ secrets.DNS_EC2 }}
-            ls -la
+            cat deployer_devops.pem
 
 
