@@ -34,10 +34,6 @@ jobs:
             aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_URL }}
             docker build . --file Dockerfile --tag ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest
             docker push ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest
-
-            
-            echo ${{ secrets.KEY_DEPLOYER_PEM }} >> $HOME/deployer_devops.pem
-            chmod 400 $HOME/deployer_devops.pem
       - name: Setup key
         id: setup-key
         env:
