@@ -37,6 +37,6 @@ jobs:
             docker build . --file Dockerfile --tag ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest
             docker push ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest
             ssh -o StrictHostKeyChecking=no -i "deployer_devops.pem" ${{ secrets.DNS_EC2 }} 
-            'aws ecr get-login-password --region echo $AWS_REGION | docker login --username AWS --password-stdin echo $AWS_ECR_URL'
+            'aws ecr get-login-password --region echo $AWS_REGION |sudo docker login --username AWS --password-stdin echo $AWS_ECR_URL'
 
 
