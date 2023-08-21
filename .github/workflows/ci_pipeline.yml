@@ -38,5 +38,5 @@ jobs:
         run: |
             echo "${{ secrets.KEY_DEPLOYER_PEM }}" > deployer_devops.pem
             chmod 600 deployer_devops.pem    
-            ssh -o StrictHostKeyChecking=no -i deployer_devops.pem ${{ secrets.DNS_EC2 }} 'ls -la'
+            ssh -o StrictHostKeyChecking=no -i deployer_devops.pem ${{ secrets.DNS_EC2 }} 'sudo git clone https://github.com/desarrollomarquez/docker-swarm-nginx-lb.git; cd docker-swarm-nginx-lb/ ; sh setup_docker_swarm_nginx_lb.sh'
 
