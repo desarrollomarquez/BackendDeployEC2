@@ -36,5 +36,5 @@ jobs:
             aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_URL }}
             docker build . --file Dockerfile --tag ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest
             docker push ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest
-            ssh -i "deployer_devops.pem" ${{ secrets.DNS_EC2 }}'sudo git clone https://github.com/desarrollomarquez/docker-swarm-nginx-lb.git; ls'
+            ssh -i "deployer_devops.pem" ${{ secrets.DNS_EC2 }}'sudo apt-get update; ls'
 
