@@ -38,5 +38,4 @@ jobs:
         run: |
             echo "${{ secrets.KEY_DEPLOYER_PEM }}" > deployer_devops.pem
             chmod 600 deployer_devops.pem    
-            ssh -o StrictHostKeyChecking=no -i deployer_devops.pem ${{ secrets.DNS_EC2 }} 'sudo git clone https://github.com/desarrollomarquez/docker-swarm-nginx-lb.git; cd docker-swarm-nginx-lb/ ; sh setup_docker_swarm_nginx_lb.sh'
-
+            ssh -o StrictHostKeyChecking=no -i deployer_devops.pem ${{ secrets.DNS_EC2 }} 'sudo docker rmi ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest; sudo docker pull ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest; sudo docker service create --name backend-app-node-swarm -p 80:5000 --replicas 2 ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}'
