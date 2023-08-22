@@ -38,4 +38,4 @@ jobs:
         run: |
             echo "${{ secrets.KEY_DEPLOYER_PEM }}" > deployer_devops.pem
             chmod 600 deployer_devops.pem    
-            ssh -o StrictHostKeyChecking=no -i deployer_devops.pem ${{ secrets.DNS_EC2 }} 'sudo apt-get install awscli --yes; ls -la'
+            ssh -o StrictHostKeyChecking=no -i deployer_devops.pem ${{ secrets.DNS_EC2 }} 'sudo apt install awscli --yes; ls -la'
