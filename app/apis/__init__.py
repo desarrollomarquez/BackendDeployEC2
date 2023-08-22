@@ -14,7 +14,7 @@ import sys
 blueprint = Blueprint("api", __name__)
 
 api = Api(
-    blueprint, title="Generic ApiRest.....", version="1.0", description="Generic ApiRest....."
+    blueprint, title="Generic ApiRest.", version="1.0", description="Generic ApiRest."
 )
 
 
