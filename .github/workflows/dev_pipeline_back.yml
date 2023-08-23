@@ -38,4 +38,4 @@ jobs:
         run: |
             echo "${{ secrets.KEY_DEPLOYER_PEM }}" > deployer_devops.pem
             chmod 600 deployer_devops.pem    
-            ssh -o StrictHostKeyChecking=no -i deployer_devops.pem ${{ secrets.DNS_EC2 }} 'aws configure list; sudo docker service rm ${{ secrets.PROJECT_NAME }}; sudo docker rmi -f ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}; docker image prune --yes ;sudo docker images ;sudo docker pull ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest;  sudo docker service create --name ${{ secrets.PROJECT_NAME }} -p 80:5000 --replicas 1 ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest ; sudo docker service ls'
+            ssh -o StrictHostKeyChecking=no -i deployer_devops.pem ${{ secrets.DNS_EC2 }} 'aws configure list; sudo docker service rm ${{ secrets.PROJECT_NAME }}; sudo docker rmi -f ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}; docker image prune --yes ;sudo docker images ;sudo docker pull ${{ secrets.AWS_ECR_URL_STAGING_BACKEND }}:latest'
